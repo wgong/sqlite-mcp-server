@@ -1,3 +1,5 @@
+# sqlite-mcp-server
+Building a simple SQLite MCP server
 
 # Correct command to run MCP server but we don't know how to talk to it b/c this is run locally
 SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp run sqlite_explorer.py
