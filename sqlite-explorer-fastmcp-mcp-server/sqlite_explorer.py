@@ -2,7 +2,7 @@ from pathlib import Path
 import sqlite3
 import os
 from typing import List, Dict, Any, Optional
-from mcp.server.fastmcp import FastMCP, Context
+from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 from smithery.decorators import smithery
 

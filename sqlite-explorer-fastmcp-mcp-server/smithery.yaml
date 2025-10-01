@@ -2,4 +2,6 @@ runtime: "container"
 build:
   dockerfile: "Dockerfile"
   dockerBuildPath: "."
+startCommand:
+  type: "http"
 server: sqlite_explorer:create_server
