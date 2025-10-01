@@ -6,22 +6,14 @@ from mcp.server.fastmcp import FastMCP, Context
 from pydantic import BaseModel, Field
 from smithery.decorators import smithery
 
-# Path to Messages database - must be provided via SQLITE_DB_PATH environment variable
-if 'SQLITE_DB_PATH' not in os.environ:
-    raise ValueError("SQLITE_DB_PATH environment variable must be set")
-DB_PATH = Path(os.environ['SQLITE_DB_PATH']) # Environment variable 
-
-# Configuration schema for user-provided database path
-class ConfigSchema(BaseModel):
-    database_path: str = Field(
-        ..., 
-        description="Path to SQLite database file"
-    )
 # For Smithery, need create_server function, within which we have our tools
-@smithery.server(config_schema=ConfigSchema)
+@smithery.server()
 def create_server():
     """Create and configure the SQLite Explorer MCP server."""
-    
+
+    # Get database path - hardcoded to financial_data.db in same folder
+    db_path = Path(__file__).parent / "financial_data.db"
+    DB_PATH = db_path
     mcp = FastMCP("SQLite Explorer", log_level="CRITICAL")
     
     class SQLiteConnection:

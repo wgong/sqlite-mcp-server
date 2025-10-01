@@ -26,8 +26,9 @@ SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer
 
 # Need to define the SQLITE_DB_PATH variable before running smithery playground 
 SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db smithery playground
-
 ```
+
+After launching Smithery playground, we can now talk to the MCP server using this URL: https://smithery.ai/playground?mcp=https%3A%2F%2Fee09cd8f.ngrok.smithery.ai%2Fmcp
 
 #### For VSCode with Cline
 ```bash
