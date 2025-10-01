@@ -1,3 +1,22 @@
-fastmcp
-smithery
-# This will give us the latest version of fastmcp to install
+# Core MCP Framework
+fastmcp>=2.12.0
+
+# Smithery deployment platform
+smithery>=0.4.0
+
+# Data validation and serialization (automatically installed with fastmcp, but specified for clarity)
+pydantic>=2.11.0
+
+# Note: The following are included with Python standard library:
+# - pathlib (Python 3.4+)
+# - sqlite3 (Python 2.5+)
+# - os (built-in)
+# - logging (Python 2.3+)
+# - typing (Python 3.5+, backport available for older versions)
+
+# Additional dependencies automatically installed by fastmcp:
+# - mcp>=1.12.4 (Model Context Protocol core)
+# - uvicorn>=0.31.1 (ASGI server)
+# - starlette>=0.27 (Web framework)
+# - httpx>=0.28.1 (HTTP client)
+# - and others for HTTP/WebSocket support
