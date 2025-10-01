@@ -1,3 +1,3 @@
 fastmcp
-
+smithery
 # This will give us the latest version of fastmcp to install
