@@ -1,0 +1,19 @@
+[project]
+name = "sqlite-explorer-mcp"
+version = "1.0.0"
+description = "MCP server for exploring SQLite databases"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=0.2.0",
+    "smithery>=0.1.0"
+]
+
+[tool.smithery]
+server = "sqlite_explorer:create_server"
+
+[tool.hatch.build.targets.wheel]
+py-modules = ["sqlite_explorer"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -24,6 +24,9 @@ SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer
 # To set up the MCP server with Claude Desktop
 SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp claude-desktop add sqlite_explorer.py --name "SQLite Explorer"
 
+# Need to define the SQLITE_DB_PATH variable before running smithery playground 
+SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db smithery playground
+
 ```
 
 #### For VSCode with Cline
