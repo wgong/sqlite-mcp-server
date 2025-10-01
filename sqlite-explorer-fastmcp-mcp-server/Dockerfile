@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY sqlite_explorer.py .
 COPY financial_data.db .
 
-CMD ["python", "-m", "sqlite_explorer"]
+CMD ["python", "sqlite_explorer.py"]
