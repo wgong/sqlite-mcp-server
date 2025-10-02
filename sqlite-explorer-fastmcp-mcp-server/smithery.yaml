@@ -1,5 +1,2 @@
-runtime: "container"
-build:
-  dockerfile: "Dockerfile"
-  dockerBuildPath: "."
+runtime: "python"
 server: sqlite_explorer:create_server
