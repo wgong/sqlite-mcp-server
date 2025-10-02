@@ -1,7 +1,2 @@
-runtime: "container"
-build:
-  dockerfile: "sqlite-explorer-fastmcp-mcp-server/Dockerfile"
-  dockerBuildPath: "sqlite-explorer-fastmcp-mcp-server"
-startCommand:
-  type: "sse"
-server: sqlite_explorer:create_server
+runtime: "python"
+server: sqlite-explorer-fastmcp-mcp-server/sqlite_explorer:create_server
