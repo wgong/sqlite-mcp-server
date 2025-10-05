@@ -1,38 +1,102 @@
-### Prerequisites
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/hannesrudolph-sqlite-explorer-fastmcp-mcp-server-badge.png)](https://mseep.ai/app/hannesrudolph-sqlite-explorer-fastmcp-mcp-server)
+[![smithery badge](https://smithery.ai/badge/hannesrudolph/sqlite-explorer-fastmcp-mcp-server)](https://smithery.ai/server/hannesrudolph/sqlite-explorer-fastmcp-mcp-server)
+
+# SQLite Explorer MCP Server
+
+An MCP server that provides safe, read-only access to SQLite databases through Model Context Protocol (MCP). This server is built with the FastMCP framework, which enables LLMs to explore and query SQLite databases with built-in safety features and query validation.
+
+## 📋 System Requirements
+
+- Python 3.6+
+- SQLite database file (path specified via environment variable)
+
+## 📦 Dependencies
+
+Install all required dependencies:
+
 ```bash
-# Install dependencies
+# Using pip
 pip install -r requirements.txt
-
-# Install FastMCP globally (if not already installed)
-pip install fastmcp
 ```
 
-### COMMAND CHEATSHEET
+### Required Packages
+- **fastmcp**: Framework for building Model Context Protocol servers
+
+All dependencies are specified in `requirements.txt` for easy installation.
+
+## 📑 Table of Contents
+- [System Requirements](#-system-requirements)
+- [Dependencies](#-dependencies)
+- [MCP Tools](#%EF%B8%8F-mcp-tools)
+- [Getting Started](#-getting-started)
+- [Installation Options](#-installation-options)
+  - [Claude Desktop](#option-1-install-for-claude-desktop)
+  - [Cline VSCode Plugin](#option-2-install-for-cline-vscode-plugin)
+- [Safety Features](#-safety-features)
+- [Development Documentation](#-development-documentation)
+- [Environment Variables](#%EF%B8%8F-environment-variables)
+
+## 🛠️ MCP Tools
+
+The server exposes the following tools to LLMs:
+
+### read_query
+Execute a SELECT query on the database with built-in safety validations. Features:
+- Query validation and sanitization
+- Parameter binding support
+- Row limit enforcement
+- Results formatted as dictionaries
+
+### list_tables 
+List all available tables in the database with their names.
+
+### describe_table
+Get detailed schema information for a specific table, including:
+- Column names and types
+- NULL constraints
+- Default values
+- Primary key information
+
+## 🚀 Getting Started
+
+Clone the repository:
+
 ```bash
-# Run FastMCP directly for testing
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp run sqlite_explorer.py
-
-# Test with inspector (if available)
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp inspect sqlite_explorer.py
-
-# To install SQLite Explorer
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp install sqlite_explorer.py --name "SQLite Explorer"
-
-# To launch SQLite Explorer via a web-based testing interface. Run with `--transport sse` for HTTP-based communication  
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp dev sqlite_explorer.py
-
-# To set up the MCP server with Claude Desktop
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db fastmcp claude-desktop add sqlite_explorer.py --name "SQLite Explorer"
-
-# Need to define the SQLITE_DB_PATH variable before running smithery playground 
-SQLITE_DB_PATH=/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db smithery playground
+git clone https://github.com/hannesrudolph/sqlite-explorer-fastmcp-mcp-server.git
+cd sqlite-explorer-fastmcp-mcp-server
 ```
 
-After launching Smithery playground, we can now talk to the MCP server using this URL: https://smithery.ai/playground?mcp=https%3A%2F%2Fee09cd8f.ngrok.smithery.ai%2Fmcp
+## 📦 Installation Options
 
-#### For VSCode with Cline
+You can install this MCP server in either Claude Desktop or the Cline VSCode plugin. Choose the option that best suits your needs.
+
+### Option 1: Install for Claude Desktop
+
+#### Installing via Smithery
+
+To install sqlite-explorer-fastmcp-mcp-server automatically via [Smithery](https://smithery.ai/server/hannesrudolph/sqlite-explorer-fastmcp-mcp-server):
+
 ```bash
-# Add this configuration to Cline MCP settings:
+npx -y @smithery/cli install hannesrudolph/sqlite-explorer-fastmcp-mcp-server
+```
+
+Install using FastMCP:
+
+```bash
+fastmcp install sqlite_explorer.py --name "SQLite Explorer" -e SQLITE_DB_PATH=/path/to/db
+```
+
+Replace `/path/to/db` with the path to your SQLite database file.
+
+### Option 2: Install for Cline VSCode Plugin
+
+To use this server with the [Cline VSCode plugin](http://cline.bot):
+
+1. In VSCode, click the server icon (☰) in the Cline plugin sidebar
+2. Click the "Edit MCP Settings" button (✎)
+3. Add the following configuration to the settings file:
+
+```json
 {
   "sqlite-explorer": {
     "command": "uv",
@@ -44,107 +108,37 @@ After launching Smithery playground, we can now talk to the MCP server using thi
       "uvicorn",
       "fastmcp",
       "run",
-      "/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/sqlite_explorer.py"
+      "/path/to/repo/sqlite_explorer.py"
     ],
     "env": {
-      "SQLITE_DB_PATH": "/Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db"
+      "SQLITE_DB_PATH": "/path/to/your/database.db"
     }
   }
 }
 ```
 
-#### Example output. MCP server provides four components. SQLite Explorer provides those tools.
-Server
-  Name:         SQLite Explorer
-  Generation:   2
+Replace:
+- `/path/to/repo` with the full path to where you cloned this repository (e.g., `/Users/username/Projects/sqlite-explorer-fastmcp-mcp-server`)
+- `/path/to/your/database.db` with the full path to your SQLite database file
 
-Components
-  Tools:        3
-  Prompts:      0
-  Resources:    0
-  Templates:    0
+## 🔒 Safety Features
 
-Environment
-  FastMCP:      2.12.4
-  MCP:          1.15.0
+- Read-only access to SQLite databases
+- Query validation and sanitization
+- Parameter binding for safe query execution
+- Row limit enforcement
+- Progress output suppression for clean JSON responses
 
-  This will open an interactive inspector where you can test the MCP tools:
-  - list_tables - to see what tables are in your database
-  - describe_table - to see the structure of a specific table
-  - read_query - to run SELECT queries on your data
+## 📚 Development Documentation
 
+The repository includes documentation files for development:
 
-### Notes
-Even though we're running the MCP locally, still have a web interface
-For locally deployed MCP server SQLite Explorer, this is the MCP server URL that we can access as a client: http://localhost:6274/?MCP_PROXY_AUTH_TOKEN=e01acfa4461c1af5227669c2c0051e7cf9c280fb61a43a146a672463441f4c1b#tools
-In the future, once deployed, we'll have the same thing - HTTP or HTTPS, but instead of a local host, it'll be my server and the port. The rest will be something else. 
-Local host is the server name, so the server is a local host. But if deployed somewhere, then it'll be a different host name. The port serves as a channel to talk to multiple MCP servers. HTTPS is a secure HTTP. 
+- `mcp-documentation.txt`: Contains comprehensive documentation about the MCP server implementation and FastMCP framework usage.
 
-#### Sample Questions to Ask Your AI Assistant
+This documentation serves as context when developing features and can be used with LLMs to assist in development.
 
-Once the MCP server is connected, you can ask questions like:
+## ⚙️ Environment Variables
 
-- "What tables are in my database?"
-- "Show me the structure of my financial data"
-- "What are the first 10 rows from [table_name]?"
-- "How many records are in each table?"
-- "Show me all transactions over $1000"
-- "What's the average amount in the transactions table?"
+The following environment variables must be set:
 
-NOTE: The tables starting with SQLite are called system tables. We never created those tables.
-
-### Troubleshooting
-
-```bash
-# Check FastMCP version and available commands
-fastmcp --help
-fastmcp version
-
-# Verify your database file exists
-ls -la /Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db
-
-# Test database directly with sqlite3
-sqlite3 /Users/owner/claude-code/agentic-ai-learnings/hw3/sqlite-explorer-fastmcp-mcp-server/financial_data.db ".tables"
-```
-
-### HW 3 Documentation
-
-#### Step 1
-Cloned this GitHub repository: https://github.com/hannesrudolph/sqlite-explorer-fastmcp-mcp-server
-
-#### Step 2
-
-Asked Claude Code: I was asked to evaluate the following deployment platforms: AWS, Vercel, 
-Railway, and Smithery for my MCP server. I want the simplest and cheapest 
-deployment. Which option should I select? 
-
-⏺ Based on your MCP server and requirements, I recommend Smithery.
-
-  Here's why:
-
-  Simplest: Smithery is specifically designed for MCP servers. It has the
-  most straightforward deployment process for this exact use case.
-
-  Cheapest: Smithery offers a free tier for MCP server hosting, making it
-  the most cost-effective option for your SQLite Explorer MCP server.
-
-  Other options comparison:
-  - AWS: Most complex setup, requires managing infrastructure, not
-  cost-effective for simple MCP servers
-  - Vercel: Designed for web apps/APIs, not optimized for MCP servers,
-  serverless model may not fit well
-  - Railway: Good platform but more expensive than Smithery's free tier,
-  more general-purpose
-
-  For a read-only SQLite MCP server like yours, Smithery's MCP-specific
-  infrastructure is the best match for "simplest and cheapest."
-
-#### Step 3
-
-Tested this locally via Cline. In VS Code, we configured the system settings to launch a web-based interface with the following JSON file. See URL: http://localhost:6274/?MCP_PROXY_AUTH_TOKEN=a164e503687338cb23938baf05ae738ebe5cd0eaefa629e419cea7ef6ef51563#tools
-
-#### Step 4
-
-smithery playground URL : https://smithery.ai/playground?mcp=https%3A%2F%2F143c4151.ngrok.smithery.ai%2Fmcp
-
-
+- `SQLITE_DB_PATH`: Full path to the SQLite database file you want to explore
