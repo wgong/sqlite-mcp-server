@@ -144,3 +144,7 @@ deployment. Which option should I select?
 Tested this locally via Cline. In VS Code, we configured the system settings to launch a web-based interface with the following JSON file. See URL: http://localhost:6274/?MCP_PROXY_AUTH_TOKEN=a164e503687338cb23938baf05ae738ebe5cd0eaefa629e419cea7ef6ef51563#tools
 
 #### Step 4
+
+smithery playground URL : https://smithery.ai/playground?mcp=https%3A%2F%2F143c4151.ngrok.smithery.ai%2Fmcp
+
+
